@@ -3,7 +3,7 @@ const BooksSchema = require("../models/bookModel");
 const books = function(app) {
 
   app.get("/books", function(req, res) {
-    res.send(availableBooks);
+    BooksSchema.find().then(data=>res.send(data)).catch(e=>console.log(e))
   });
   app.post("/booksAdded", function(req, res) {
     console.log("res", res);

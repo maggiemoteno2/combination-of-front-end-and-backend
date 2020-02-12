@@ -6,7 +6,7 @@ var BooksSchema = mongoose.Schema({
     require: true
   },
   author: { type: String, require: true },
-  lastActiveAt: Date
+  date: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model("bookModel", BooksSchema);
