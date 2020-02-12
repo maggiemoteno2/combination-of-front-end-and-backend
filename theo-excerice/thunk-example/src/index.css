@@ -1,0 +1,25 @@
+/* userz */
+.button-input>input{
+margin-left:10vh;
+}
+.button-input>button{
+  width:7vh;
+  margin-left:3px;
+}
+.button-input{
+  display:flex;
+}
+/* addcomp */
+.wrapper2>button{
+  height:2vh;
+  margin-left:3px;
+}
+/* books */
+.add-books{
+height: 2.1vh;
+margin-left:3px;
+}
+.edit-books{
+  height: 2.2vh;
+  margin-left:3px;
+}

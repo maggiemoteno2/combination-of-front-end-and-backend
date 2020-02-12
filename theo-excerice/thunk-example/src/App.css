@@ -1,0 +1,57 @@
+
+body{
+  background-color: rgb(71, 57, 57);
+}
+.wrapper{
+  margin-right:10px;
+  justify-content: space-around;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  padding-left: 15px;
+
+}
+.wrapper>span{
+  padding-right:30px;
+}
+.container-child {
+  display:grid;
+  grid-template-columns: auto auto auto;
+  background-color: rgb(243, 237, 237);
+  border: 3px inset;
+}
+
+.container{
+background-color: white;
+/* margin: 10rem 10rem 10rem; */
+}
+.h3{
+  flex: 1;
+}
+.date{
+  flex:3;
+}
+
+/* .input{
+  margin-right: 890px
+} */
+.userz{
+  width:40vh;
+}
+.userz>h1{
+  padding-left: 15px;
+}
+#icon{
+  margin: 1rem 1rem;
+}
+#computerIcon{
+  margin: 0rem 1rem;
+}
+/* #usersTrash{
+  margin: 0rem 1rem;
+} */
+button{
+  border: 1px;
+  color:rgb(241, 235, 235);
+  background-color: black
+}
