@@ -29,10 +29,13 @@ export function removeComputer(id) {
 
           try{
               console.log('sent data', {name})
-              const{data}=await axios.post("http://localhost:5000/computer",{name})
+              await axios.post("http://localhost:4000/computer",{name})
+              const {data}= await axios.get('http://localhost:4000/computers')
               
           } catch(e){
               console.log(e)
+              
+             
           }
       }
   }
