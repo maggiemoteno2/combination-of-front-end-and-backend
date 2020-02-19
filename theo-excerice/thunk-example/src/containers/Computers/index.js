@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { removeComputer, addComputer } from "./../../redux/computer/actions";
+import {
+  removeComputer,
+  addComputer,
+  getComputers
+} from "./../../redux/computer/actions";
 import moment from "moment";
 
 class index extends Component {
@@ -10,17 +14,11 @@ class index extends Component {
       name: ""
     };
   }
+  componentDidMount() {
+    this.props.getComputers();
+  }
 
   computerAdd = name => {
-    const { computerNames } = this.props;
-    for (var i in computerNames) {
-      if (
-        computerNames[i].name.toUpperCase().trim() === name.toUpperCase().trim()
-      ) {
-        return alert("Computer already added");
-      }
-    }
-
     this.props.addComputer(name);
     this.setState({
       ...this.state,
@@ -38,7 +36,6 @@ class index extends Component {
     const { name } = this.state;
     return (
       <div className="computer">
-        <h1>Add computers</h1>
 
         {this.props.computerNames.map(computerName => (
           <div key={computerName.name}>
@@ -48,7 +45,7 @@ class index extends Component {
               <i
                 id="computerIcon"
                 className="fa fa-trash"
-                onClick={() => this.props.removeComputer(computerName.id)}
+                onClick={() => this.props.removeComputer(computerName._id)}
                 aria-hidden="true"
                 style={{ cursor: "pointer", marginRight: "30px" }}
               ></i>
@@ -59,18 +56,18 @@ class index extends Component {
           </div>
         ))}
         <div className="wrapper2">
-        <input
-          type="text"
-          value={name}
-          name="name"
-          onChange={this.handleChange}
-        />
-        <button
-          disabled={this.state.name === ""}
-          onClick={() => this.computerAdd(this.state.name)}
-        >
-          Add Computer
-        </button>
+          <input
+            type="text"
+            value={name}
+            name="name"
+            onChange={this.handleChange}
+          />
+          <button
+            disabled={this.state.name === ""}
+            onClick={() => this.computerAdd(this.state.name)}
+          >
+            Add Computer
+          </button>
         </div>
       </div>
     );
@@ -82,6 +79,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
+    getComputers: () => {
+      dispatch(getComputers());
+    },
     addComputer: name => {
       dispatch(addComputer(name));
     },

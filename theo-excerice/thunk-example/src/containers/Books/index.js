@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addBook } from "./../../redux/books/actions"
+import { addBook,getBooks } from "./../../redux/books/actions"
 import { editTitle } from "./../../redux/books/actions"
 import { removeBook } from "./../../redux/books/actions"
 import moment from "moment";
@@ -14,6 +14,9 @@ class Books extends Component {
       name: "",
       author: ""
     };
+  }
+  componentDidMount(){
+    this.props.getBooks()
   }
   bookAdd = (name, author) => {
     const { availableBooks } = this.props;
@@ -43,6 +46,7 @@ class Books extends Component {
       ...this.state,
       titleEdited: ""
     });
+    console.log(`editBook ${name} ${id}`)
     this.props.editTitle(name, id);
   };
 
@@ -56,7 +60,6 @@ class Books extends Component {
     const { titleEdited, author, name, idEdited } = this.state;
     return (
       <div>
-        <h1>Books</h1>
         {this.props.availableBooks.map(book => (
           <div key={book.name}>
             <h3 className="h3">
@@ -65,13 +68,13 @@ class Books extends Component {
               <i
                 id="icon"
                 class="fa fa-edit"
-                onClick={() => this.setEditedAuthor(book.name, book.id)}
+                onClick={() => this.setEditedAuthor(book.name, book._id)}
                 aria-hidden="true"
                 style={{ cursor: "pointer" }}
               ></i>
               <i
                 className="fa fa-trash"
-                onClick={() => this.props.removeBook(book.id)}
+                onClick={() => this.props.removeBook(book._id)}
                 aria-hidden="true"
                 style={{ cursor: "pointer" }}
               ></i>
@@ -130,6 +133,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
+    getBooks: () => {
+      dispatch(getBooks());
+    },
     addBook: (name, author) => {
       dispatch(addBook(name, author));
     },
@@ -138,7 +144,8 @@ const mapDispatchToProps = dispatch => {
     },
     editTitle: (name, id) => {
       dispatch(editTitle(name, id));
-    }
+    },
+    
   };
 };
 

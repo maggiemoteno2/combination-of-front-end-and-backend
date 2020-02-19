@@ -35,7 +35,6 @@ class Users extends Component {
     const { users } = this.props;
     return (
       <div className="userz">
-        <h1>Users and Added time</h1>
         <div>
           {users.map(user => (
             <div className="wrapper">

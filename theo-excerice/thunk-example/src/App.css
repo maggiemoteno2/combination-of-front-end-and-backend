@@ -1,9 +1,11 @@
 
 body{
-  background-color: rgb(71, 57, 57);
+  background-image: url('https://cdn.pixabay.com/photo/2017/05/11/11/15/workplace-2303851_960_720.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .wrapper{
-  margin-right:10px;
+  margin-right:5.0vh;
   justify-content: space-around;
   display: flex;
   align-content: center;
@@ -12,32 +14,24 @@ body{
 
 }
 .wrapper>span{
-  padding-right:30px;
+  padding-right:40px;
 }
 .container-child {
   display:grid;
   grid-template-columns: auto auto auto;
-  background-color: rgb(243, 237, 237);
-  border: 3px inset;
+  
 }
 
-.container{
-background-color: white;
-/* margin: 10rem 10rem 10rem; */
-}
+
 .h3{
   flex: 1;
 }
 .date{
-  flex:3;
+  flex:1;
 }
 
-/* .input{
-  margin-right: 890px
-} */
-.userz{
-  width:40vh;
-}
+
+
 .userz>h1{
   padding-left: 15px;
 }
@@ -47,9 +41,7 @@ background-color: white;
 #computerIcon{
   margin: 0rem 1rem;
 }
-/* #usersTrash{
-  margin: 0rem 1rem;
-} */
+
 button{
   border: 1px;
   color:rgb(241, 235, 235);

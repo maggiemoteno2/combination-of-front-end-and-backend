@@ -14,9 +14,20 @@ const computers = function(app){
           name:req.body.name
       })
   
-      computerModel.save().then(res => res).catch(e => console.log(e))
-      res.send(201)
+      computerModel.save()
+      .then(computer => res.send(computer))
+        .catch(e => console.log(e))
     }) 
+
+    
+    app.delete('/computers/:id',function(req,res){
+      console.log("delete",req.params.id)
+     ComputerModel.findByIdAndDelete({_id:req.params.id},req.body).then(function(){
+       ComputerModel.findOneAndDelete({_id:req.params.id}).then(function(data){
+          res.send(data)
+        })
+      })
+    })
    
 }
 

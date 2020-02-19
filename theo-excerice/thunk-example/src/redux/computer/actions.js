@@ -1,37 +1,50 @@
-import { REMOVE_COMPUTER, ADD_COMPUTER } from "../actionTypes";
+import { REMOVE_COMPUTER, ADD_COMPUTER,GET_COMPUTERS} from "../actionTypes";
 import axios from 'axios';
 
-export function removeComputer(id) {
-    return {
-        type: REMOVE_COMPUTER,
-        payload: {id}
-    };
-}
-// export function addComputer(name) {
+// export function removeComputer(id) {
 //     return {
-//         type: ADD_COMPUTER,
-//         payload:  {name}
-//     }
+//         type: REMOVE_COMPUTER,
+//         payload: {id}
+//     };
 // }
 
+export const removeComputer=(id)=>{
+return async dispatch=>{
+    try{
+        await axios.delete(`http://localhost:4000/computers/${id}`)
+        console.log(`computer is ${id}`)
+        dispatch({type:REMOVE_COMPUTER , payload:id})
 
-// export const addComputer = (name) => {
-//     return async dispatch => {
-//       const computerResults = await axios.post('https://localhost:5000/computer')
-//       const computer = await computerResults.json()
-  
-//       dispatch({ type: ADD_COMPUTER, payload: [ ...computer.data ]})
-//     }
-//   }
+    }catch(e){
+        console.log(e)
+    }
+}
+}
+
+export const getComputers=()=>{
+    return async dispatch =>{
+        try{
+            const data = await axios.get('http://localhost:4000/computers')
+            const computers = await data
+
+    dispatch({ type: GET_COMPUTERS, payload: [ ...computers.data ]})
+            
+    }catch (e){
+        console.log(e)
+    }
+
+}
+}
 
    export const addComputer =(name)=>{
       return async dispatch =>{
 
           try{
               console.log('sent data', {name})
-              await axios.post("http://localhost:4000/computer",{name})
-              const {data}= await axios.get('http://localhost:4000/computers')
-              
+             const {data} = await axios.post("http://localhost:4000/computer",{name})    
+              dispatch({
+                  type: ADD_COMPUTER , payload:{...data}
+              })  
           } catch(e){
               console.log(e)
               

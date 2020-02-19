@@ -1,48 +1,30 @@
-import { ADD_COMPUTER, REMOVE_COMPUTER } from "../actionTypes";
+import { ADD_COMPUTER, REMOVE_COMPUTER ,GET_COMPUTERS} from "../actionTypes";
 
 const initialState = {
-  computerNames: [
-    {
-      name: "Mac-book",
-      date:new Date(),
-      id: 1,
-    }
-  ]
+  computerNames: []
 };
 
 export default function computers(state = initialState, action) {
   switch (action.type) {
+    case  GET_COMPUTERS : {
+      return { ...state,  
+        computerNames: action.payload };
+    }
     case ADD_COMPUTER: {
-      const {name} = action.payload;
-      if(state.computerNames.length<=0){
         return{
-          ...state,computerNames: [
+          ...state,
+          computerNames: [
             ...state.computerNames,
-            {
-              name: name,
-              date: new Date(),
-              id:1,
-            }
+            action.payload
           ]
         }
-      }
-      return {
-       ...state,computerNames: [
-          ...state.computerNames,
-          {
-            name: name,
-            date: new Date(),
-            id: state.computerNames[state.computerNames.length - 1].id + 1
-          }
-        ]
-      };
-    
     }
     case REMOVE_COMPUTER: {
+      console.log("payload",action.payload)
       return {
         computerNames: [
           ...state.computerNames.filter(
-            computer => computer.id !==action.payload.id
+            computer => computer._id !==action.payload
           )
         ]
       };
@@ -52,3 +34,4 @@ export default function computers(state = initialState, action) {
     }
   }
 }
+ 
