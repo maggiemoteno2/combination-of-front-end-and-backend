@@ -5,7 +5,6 @@ import {
   addComputer,
   getComputers
 } from "./../../redux/computer/actions";
-import moment from "moment";
 
 class index extends Component {
   constructor(props) {

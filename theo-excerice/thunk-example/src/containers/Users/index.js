@@ -34,24 +34,22 @@ class Users extends Component {
   render() {
     const { users } = this.props;
     return (
-      
-
       <div className="userz">
         <div className="button-input">
-      <input
-        type="text"
-        className="input"
-        onChange={this.setValue}
-        value={this.state.newUser}
-      />
-      <button
-        className="button"
-        disabled={this.state.newUser === ""}
-        onClick={this.addUser}
-      >
-        Add User
-      </button>
-    </div>
+          <input
+            type="text"
+            className="input"
+            onChange={this.setValue}
+            value={this.state.newUser}
+          />
+          <button
+            className="button"
+            disabled={this.state.newUser === ""}
+            onClick={this.addUser}
+          >
+            Add User
+          </button>
+        </div>
         <div>
           {users.map(user => (
             <div className="wrapper">
@@ -67,7 +65,7 @@ class Users extends Component {
               </span>
             </div>
           ))}
-         </div>
+        </div>
       </div>
     );
   }

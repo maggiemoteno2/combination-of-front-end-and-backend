@@ -19,13 +19,10 @@ export default function books(state = initialState, action) {
       };
     }
     case ADD_BOOK: {
-      
-        return {
-          ...state,availableBooks: [
-            ...state.availableBooks,
-          action.payload
-          ]
-        };
+      return {
+        ...state,
+        availableBooks: [...state.availableBooks, action.payload]
+      };
     }
 
     case EDIT_TITLE: {
@@ -41,7 +38,7 @@ export default function books(state = initialState, action) {
       return { ...state, editedValue: action.payload };
     }
     case REMOVE_BOOK: {
-      console.log("books action payload",action.payload.id)
+      console.log("books action payload", action.payload.id);
       return {
         availableBooks: [
           ...state.availableBooks.filter(
@@ -55,4 +52,3 @@ export default function books(state = initialState, action) {
     }
   }
 }
-

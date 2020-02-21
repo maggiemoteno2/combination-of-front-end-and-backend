@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
      
-      <div class="container">
+      <div class="container-wrapper">
           <Navbar/>
         </div>
     );

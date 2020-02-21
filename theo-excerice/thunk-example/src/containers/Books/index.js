@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { addBook, getBooks } from "./../../redux/books/actions";
 import { editTitle } from "./../../redux/books/actions";
 import { removeBook } from "./../../redux/books/actions";
-import moment from "moment";
 
 class Books extends Component {
   constructor(prop) {
