@@ -36,25 +36,6 @@ class index extends Component {
     const { name } = this.state;
     return (
       <div className="computer">
-
-        {this.props.computerNames.map(computerName => (
-          <div key={computerName.name}>
-            <h3>
-              {" "}
-              {computerName.name}
-              <i
-                id="computerIcon"
-                className="fa fa-trash"
-                onClick={() => this.props.removeComputer(computerName._id)}
-                aria-hidden="true"
-                style={{ cursor: "pointer", marginRight: "30px" }}
-              ></i>
-            </h3>
-            <p className="time">
-              {moment(computerName.date).format("Do MMMM  YYYY, h:mm:ss a")}
-            </p>
-          </div>
-        ))}
         <div className="wrapper2">
           <input
             type="text"
@@ -69,6 +50,22 @@ class index extends Component {
             Add Computer
           </button>
         </div>
+
+        {this.props.computerNames.map(computerName => (
+          <div key={computerName.name}>
+            <h3 className="h3">
+              {" "}
+              {computerName.name}
+              <i
+                id="computerIcon"
+                className="fa fa-trash"
+                onClick={() => this.props.removeComputer(computerName._id)}
+                aria-hidden="true"
+                style={{ cursor: "pointer", marginRight: "30px" }}
+              ></i>
+            </h3>
+          </div>
+        ))}
       </div>
     );
   }

@@ -1,25 +1,29 @@
 /* userz */
-.button-input>input{
-margin-left:10vh;
+.button-input > input {
+  margin-top: 10px;
+  height: 30px;
 }
-.button-input>button{
-  width:7vh;
-  margin-left:3px;
+.button-input > button {
+  margin-top: 10px;
+  margin-left: 3px;
 }
-.button-input{
-  display:flex;
+.button-input {
+  display: flex;
 }
 /* addcomp */
-.wrapper2>button{
-  height:3vh;
-  margin-left:3px;
+.wrapper2 > button {
+  margin-top: 10px;
+  height: 4vh;
+  margin-left: 3px;
 }
 /* books */
-.add-books{
-height: 3vh;
-margin-left:3px;
+.add-books {
+  margin-top: 10px;
+  height: 4vh;
+  margin-left: 3px;
 }
-.edit-books{
-  height: 3vh;
-  margin-left:3px;
+.edit-books {
+  margin-top: 10px;
+  height: 4vh;
+  margin-left: 3px;
 }

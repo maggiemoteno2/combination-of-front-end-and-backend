@@ -10,7 +10,7 @@ class Navbar extends Component {
     this.state = {
       users: false,
       books: false,
-      computer: true
+      computer: false
     };
   }
   toggleUsers() {
@@ -31,48 +31,47 @@ class Navbar extends Component {
 
   render() {
     const { users, books, computer } = this.state;
+
     return (
-      <div>
-        <div class="navbar">
-          <div class="dropdown">
-            <div class="dropdown-content">
-              <div class="header">
-                <header> @Frontend and Backend</header>
+      <nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
+        <div className="container">
+          <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <div class="users-toggle-button">
+                    <button onClick={() => this.toggleUsers()}>Users</button>
 
-              </div>
-                <i class="fa fa-books"></i>
-              <div className="lists">
-              <i class="fa fa-user"></i>
-                <div class="column">
-                  <button onClick={() => this.toggleUsers()}>Users</button>
-                  {users ? <Users /> : null}
-                </div>
-                
-                <div class="column">
-                  <button onClick={() => this.toggleBooks()}>Books</button>
-                  <div className="books-value">
-                  {books ? <Books /> : null}
+                    <div className="data">{users ? <Users /> : null}</div>
                   </div>
-                </div>
+                </a>
+              </li>
 
-                <div class="column">
-                  <button onClick={() => this.toggleComputers()}>
-                    Computers
-                  </button>
-                  <div className="computer-value">
-                  {computer ? <Computers /> : null}
+              <li class="nav-item">
+                <a class="nav-link">
+                  <div class="books-toggle-button">
+                    <button onClick={() => this.toggleBooks()}>Books</button>
+
+                    {books ? <Books /> : null}
                   </div>
-                </div>
-                </div>
+                </a>
+              </li>
 
-              <div class="row">
-                <br />
-                <br />
-              </div>
-            </div>
+              <li class="nav-item">
+                <a class="nav-link">
+                  <div class="computure-toggle-button">
+                    <button onClick={() => this.toggleComputers()}>
+                      Computers
+                    </button>
+
+                    {computer ? <Computers /> : null}
+                  </div>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+      </nav>
     );
   }
 }

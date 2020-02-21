@@ -11,7 +11,7 @@ import axios from 'axios';
 export const removeComputer=(id)=>{
 return async dispatch=>{
     try{
-        await axios.delete(`http://localhost:4000/computers/${id}`)
+        await axios.delete(`http://localhost:3002/computers/${id}`)
         console.log(`computer is ${id}`)
         dispatch({type:REMOVE_COMPUTER , payload:id})
 
@@ -24,7 +24,7 @@ return async dispatch=>{
 export const getComputers=()=>{
     return async dispatch =>{
         try{
-            const data = await axios.get('http://localhost:4000/computers')
+            const data = await axios.get('http://localhost:3002/computers')
             const computers = await data
 
     dispatch({ type: GET_COMPUTERS, payload: [ ...computers.data ]})
@@ -41,7 +41,7 @@ export const getComputers=()=>{
 
           try{
               console.log('sent data', {name})
-             const {data} = await axios.post("http://localhost:4000/computer",{name})    
+             const {data} = await axios.post("http://localhost:3002/computer",{name})    
               dispatch({
                   type: ADD_COMPUTER , payload:{...data}
               })  

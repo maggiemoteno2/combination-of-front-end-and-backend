@@ -1,49 +1,57 @@
-
-body{
-  background-image: url('https://cdn.pixabay.com/photo/2017/05/11/11/15/workplace-2303851_960_720.jpg');
+body {
+  background-image: url("https://cdn.pixabay.com/photo/2020/01/26/11/46/paper-flower-background-4794429_960_720.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
-.wrapper{
-  margin-right:5.0vh;
+.wrapper {
   justify-content: space-around;
   display: flex;
-  align-content: center;
+  /* align-content: center; */
   align-items: center;
-  padding-left: 15px;
-
+  padding-right: 95px;
 }
-.wrapper>span{
-  padding-right:40px;
+.wrapper > span {
+  padding-right: 40px;
 }
 .container-child {
-  display:grid;
+  display: grid;
   grid-template-columns: auto auto auto;
-  
 }
 
-
-.h3{
+.h3 {
   flex: 1;
 }
-.date{
-  flex:1;
+
+.h3 {
+  color: black;
+  margin-left: 50px;
+  font-family: "Varela Round";
 }
 
-
-
-.userz>h1{
+.userz > h1 {
   padding-left: 15px;
 }
-#icon{
-  margin: 1rem 1rem;
-}
-#computerIcon{
+
+#computerIcon {
   margin: 0rem 1rem;
 }
 
-button{
+button {
   border: 1px;
-  color:rgb(241, 235, 235);
-  background-color: black
+  color: rgb(241, 235, 235);
+  background-color: black;
+}
+.computer {
+  color: black;
+  margin-left: 30vh;
+}
+.button-input {
+  margin-right: 50px;
+}
+.Books {
+  color: black;
+}
+
+.edit-book-wrapper {
+  margin-top: 50px;
 }
