@@ -7,10 +7,9 @@ const users = app => {
       .catch(e => console.log(e));
   });
 
-  app.post("/usersAdded", function(req, res) {
-    console.log("users", req.body.name.name);
+  app.post("/usersAdded/:name", function(req, res) {
     const userSchema = new UsersModel({
-      name: req.body.name.name
+      name: req.params.name
     });
 
     userSchema
@@ -21,10 +20,8 @@ const users = app => {
 
   app.delete("/users/delete/:id", function(req, res) {
     console.log("my id", req.params.id);
-    UsersModel.findByIdAndDelete({ _id: req.params.id }).then(function() {
-      UsersModel.findOneAndDelete({ _id: req.params.id }).then(function(data) {
-        res.send(data);
-      });
+    UsersModel.findByIdAndDelete({ _id: req.params.id }).then(function(data) {
+      res.send(data);
     });
   });
 };

@@ -10,7 +10,8 @@ class Navbar extends Component {
     this.state = {
       users: false,
       books: false,
-      computer: false
+      computer: false,
+     
     };
   }
   toggleUsers() {
@@ -29,11 +30,14 @@ class Navbar extends Component {
     });
   }
 
+ 
+
   render() {
     const { users, books, computer } = this.state;
 
     return (
       <nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
+        
         <div className="container">
           <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
@@ -68,6 +72,7 @@ class Navbar extends Component {
                   </div>
                 </a>
               </li>
+              
             </ul>
           </div>
         </div>
@@ -75,5 +80,5 @@ class Navbar extends Component {
     );
   }
 }
-
+   
 export default Navbar;

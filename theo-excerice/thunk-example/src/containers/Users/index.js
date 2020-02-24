@@ -28,7 +28,7 @@ class Users extends Component {
       }
     }
     this.setState({ newUser: "" });
-    this.props.addUser({ name: this.state.newUser });
+    this.props.addUser(this.state.newUser);
   };
 
   render() {

@@ -11,7 +11,8 @@ class Books extends Component {
       idEdited: "",
       titleEdited: "",
       name: "",
-      author: ""
+      author: "",
+      search:''
     };
   }
   componentDidMount() {
@@ -37,6 +38,12 @@ class Books extends Component {
       author: ""
     });
   };
+  searchTitle=(event)=>{
+    this.setState({
+      search:event.target.value.substr(0,20)
+    })
+  }
+
   editBook = (name, id) => {
     if (this.state.idEdited === "") {
       return;
@@ -56,6 +63,9 @@ class Books extends Component {
     });
   };
   render() {
+    let filteredBooks= this.props.availableBooks.filter((book)=>{
+      return book.name.indexOf(this.state.search) !== -1;
+    })
     const { titleEdited, author, name, idEdited } = this.state;
     return (
       <div className="Books">
@@ -81,10 +91,14 @@ class Books extends Component {
         >
           Add
         </button>
-        {this.props.availableBooks.map(book => (
+        <div className="search-box">
+              <input type='text' placeholder="search title..." value={this.state.search} onChange={this.searchTitle} />
+              <button type="submit"><i class="fa fa-search"></i></button>
+              </div>
+        {filteredBooks.map(book => (
           <div key={book.name}>
             <h3 className="h3">
-              Name: {book.name}
+              Title: {book.name}
               <i
                 id="icon"
                 class="fa fa-edit"
@@ -115,7 +129,7 @@ class Books extends Component {
           />
           <button
             className="edit-books"
-            disabled={this.state.titleEdited === ""}
+            disabled={this.state.titleEdited ===""}
             onClick={() => this.editBook(titleEdited, idEdited)}
           >
             save
