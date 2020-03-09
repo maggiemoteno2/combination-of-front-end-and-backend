@@ -3,7 +3,8 @@ import {
   EDIT_TITLE,
   REMOVE_BOOK,
   SAVE_EDITED_VALUE,
-  GET_BOOKS
+  GET_BOOKS,
+  SEARCH_BOOK
 } from "../actionTypes";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
 
 export default function books(state = initialState, action) {
   switch (action.type) {
+   
     case GET_BOOKS: {
       return {
         ...state,
@@ -24,10 +26,15 @@ export default function books(state = initialState, action) {
         availableBooks: [...state.availableBooks, action.payload]
       };
     }
+    case SEARCH_BOOK:{
+      return{
+        ...state,availableBooks:action.payload
+      }
+    }
 
     case EDIT_TITLE: {
       const bookIndex = state.availableBooks.findIndex(
-        book => book._id === action.payload.id
+        book => book.id === action.payload.id
       );
       state.availableBooks[bookIndex].name = action.payload.name;
       console.log("ajd", state.availableBooks);
@@ -42,7 +49,7 @@ export default function books(state = initialState, action) {
       return {
         availableBooks: [
           ...state.availableBooks.filter(
-            books => books._id !== action.payload.id
+            books => books.id !== action.payload.id
           )
         ]
       };

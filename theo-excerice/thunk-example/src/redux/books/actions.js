@@ -1,4 +1,10 @@
-import { ADD_BOOK, REMOVE_BOOK, EDIT_TITLE, GET_BOOKS } from "../actionTypes";
+import {
+  ADD_BOOK,
+  REMOVE_BOOK,
+  EDIT_TITLE,
+  GET_BOOKS,
+  SEARCH_BOOK
+} from "../actionTypes";
 import axios from "axios";
 
 export const removeBook = id => {
@@ -23,10 +29,13 @@ export const editTitle = (name, id) => {
   };
 };
 
-export const getBooks = () => {
+export const getBooks = (data = { skip: 0, limit: 10 }) => {
+  const { skip, limit } = data;
   return async dispatch => {
     try {
-      const data = await axios.get("http://localhost:3002/books");
+      const data = await axios.get(
+        `http://localhost:3002/books/${skip}/${limit}`
+      );
       const books = await data;
       console.log("get data", data);
 
@@ -36,11 +45,29 @@ export const getBooks = () => {
     }
   };
 };
+
+export const searchBook = (author) => {
+  return async dispatch => {
+    try {
+      const data = await axios.get(`http://localhost:3002/bookSearch`, {
+        params: {
+          author
+        }
+      });
+      const book = await data;
+      console.log("searched book", data);
+      dispatch({ type: SEARCH_BOOK, payload: [...book.data] });
+    } catch (e) {
+      console.log("error", e);
+    }
+  };
+};
+
 export const addBook = (name, author) => {
   return async dispatch => {
     try {
       console.log("sent data", { name, author });
-      const { data } = await axios.post("http://localhost:3002/booksAdded", {
+      const { data } = await axios.post("http://localhost:3002/books", {
         name,
         author
       });

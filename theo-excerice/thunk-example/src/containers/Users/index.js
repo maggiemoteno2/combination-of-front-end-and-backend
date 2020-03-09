@@ -56,9 +56,10 @@ class Users extends Component {
               <h3 className="h3"> {user.name}</h3>
               <span>
                 {" "}
+                {/* <p className="user-date">{moment(user.date).format("Do MMMM  YYYY, h:mm:ss a")}</p> */}
                 <i
                   className="fa fa-trash"
-                  onClick={() => this.props.removeUser(user._id)}
+                  onClick={() => this.props.removeUser(user.id)}
                   aria-hidden="true"
                   style={{ cursor: "pointer" }}
                 ></i>

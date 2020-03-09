@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import moment from 'moment'
 import {
   removeComputer,
   addComputer,
@@ -58,11 +59,12 @@ class index extends Component {
               <i
                 id="computerIcon"
                 className="fa fa-trash"
-                onClick={() => this.props.removeComputer(computerName._id)}
+                onClick={() => this.props.removeComputer(computerName.id)}
                 aria-hidden="true"
                 style={{ cursor: "pointer", marginRight: "30px" }}
               ></i>
             </h3>
+            <p className="computer-date">{moment(computerName.date).format("Do MMMM  YYYY, h:mm:ss a")}</p>
           </div>
         ))}
       </div>

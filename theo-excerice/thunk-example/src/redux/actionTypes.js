@@ -11,3 +11,4 @@ export const REMOVE_BOOK = "REMOVE_BOOK";
 export const EDIT_TITLE = "EDIT_TITLE";
 export const SAVE_EDITED_VALUE = "SAVE_EDITED_VALUE";
 export const GET_BOOKS = "GET_BOOKS";
+export const SEARCH_BOOK ="SEARCH_BOOK"

@@ -26,7 +26,7 @@ export const getAllUsers = () => {
    console.log('name :', name);
    return async dispatch=>{
      try{
-       const {data}=await axios.post(`http://localhost:3002/usersAdded/${name}`)
+       const {data}=await axios.post(`http://localhost:3002/users`,{name})
        console.log("data",data)
       dispatch({
         type:"ADD_USER",

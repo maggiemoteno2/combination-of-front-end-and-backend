@@ -3,6 +3,7 @@ var bodyParser= require('body-parser')
 var {computers }= require('./routes/computers');
 var {books} = require('./routes/books');
 var {users} = require('./routes/users');
+var {bookSearch}= require('./routes/bookSearch')
 var cors = require("cors");
 const mongoose = require('mongoose');
 
@@ -21,6 +22,7 @@ mongoose.connect('mongodb+srv://Maggie-Moteno:Maggie-Thabo2000@maggie1-qiqvh.mon
 computers(app);
 books(app);
 users(app);
+bookSearch(app)
 
 app.use(express.static ('./thunk-example/public'))
 

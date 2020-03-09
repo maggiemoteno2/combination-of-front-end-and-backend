@@ -1,28 +1,39 @@
 const UsersModel = require("../models/usersModel");
 
 const users = app => {
-  app.get("/users", function(req, res) {
-    UsersModel.find()
-      .then(data => res.send(data))
-      .catch(e => console.log(e));
+  app.get("/users", async(req, res) => {
+    try{
+     const results = await UsersModel.find()
+     const users = results.map(user => {
+      return {id : user._id , name : user.name, date : user.date};
+    });
+      res.status(201).json(users)
+    }catch(e){
+      res.status(500)
+    }
   });
 
-  app.post("/usersAdded/:name", function(req, res) {
-    const userSchema = new UsersModel({
-      name: req.params.name
-    });
-
-    userSchema
-      .save()
-      .then(users => res.send(users))
-      .catch(e => console.log(e));
+  app.post("/users", async(req, res) => {
+    try{
+      const userSchema = new UsersModel({
+        name: req.body.name
+      });
+  const user = await userSchema.save()
+  const userWithProperId = {id : user._id , name : user.name, date : user.date }
+  res.status(201).json(userWithProperId)
+    }catch(e){
+      res.status(500)
+    }
   });
 
-  app.delete("/users/delete/:id", function(req, res) {
-    console.log("my id", req.params.id);
-    UsersModel.findByIdAndDelete({ _id: req.params.id }).then(function(data) {
-      res.send(data);
-    });
+  app.delete("/users/delete/:id", async(req, res) =>{
+    try{
+       await UsersModel.findByIdAndDelete({ _id: req.params.id })
+       res.status(201)
+    }catch(e){
+      res.status(500)
+    }
+   
   });
 };
 

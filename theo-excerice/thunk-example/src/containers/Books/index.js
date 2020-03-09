@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addBook, getBooks } from "./../../redux/books/actions";
+import { addBook, getBooks,searchBook } from "./../../redux/books/actions";
 import { editTitle } from "./../../redux/books/actions";
 import { removeBook } from "./../../redux/books/actions";
+import moment from "moment";
 
 class Books extends Component {
   constructor(prop) {
@@ -38,10 +39,11 @@ class Books extends Component {
       author: ""
     });
   };
-  searchTitle=(event)=>{
+  searchForBooks=(event,author)=>{
     this.setState({
-      search:event.target.value.substr(0,20)
+      search:event.target.value.substr(0,20),
     })
+    this.props.searchBook(author)
   }
 
   editBook = (name, id) => {
@@ -66,7 +68,7 @@ class Books extends Component {
     let filteredBooks= this.props.availableBooks.filter((book)=>{
       return book.name.indexOf(this.state.search) !== -1;
     })
-    const { titleEdited, author, name, idEdited } = this.state;
+    const { titleEdited, author, name, idEdited,search } = this.state;
     return (
       <div className="Books">
         <input
@@ -91,9 +93,10 @@ class Books extends Component {
         >
           Add
         </button>
+        
         <div className="search-box">
-              <input type='text' placeholder="search title..." value={this.state.search} onChange={this.searchTitle} />
-              <button type="submit"><i class="fa fa-search"></i></button>
+              <input type='text' placeholder="search title..." value={search} onChange={this.searchForBooks} />
+              <button type="submit"><i class="fa fa-search" onClick={ () => this.searchForBooks()}></i></button>
               </div>
         {filteredBooks.map(book => (
           <div key={book.name}>
@@ -102,22 +105,24 @@ class Books extends Component {
               <i
                 id="icon"
                 class="fa fa-edit"
-                onClick={() => this.setEditedAuthor(book.name, book._id)}
+                onClick={() => this.setEditedAuthor(book.name, book.id)}
                 aria-hidden="true"
                 style={{ cursor: "pointer" }}
               ></i>
               <i
                 className="fa fa-trash"
-                onClick={() => this.props.removeBook(book._id)}
+                onClick={() => this.props.removeBook(book.id)}
                 aria-hidden="true"
                 style={{ cursor: "pointer" }}
               ></i>
             </h3>
             <h3 className="h3"> Aurthor: {book.author} </h3>
+            <p className="book-date">{moment(book.date).format("Do MMMM  YYYY, h:mm:ss a")}</p>
+            
             <br />
+
           </div>
         ))}
-
         <div className="edit-book-wrapper">
           <h3 className="h3">Edit Book</h3>
           <input
@@ -127,6 +132,7 @@ class Books extends Component {
             name="titleEdited"
             onChange={e => this.setState({ titleEdited: e.target.value })}
           />
+          
           <button
             className="edit-books"
             disabled={this.state.titleEdited ===""}
@@ -142,11 +148,15 @@ class Books extends Component {
 
 const mapStateToProps = state => ({
   availableBooks: state.books.availableBooks,
-  editedValue: state.books.editedValue
+  editedValue: state.books.editedValue,
+ 
 });
 
 const mapDispatchToProps = dispatch => {
   return {
+    searchBook:(author)=>{
+      dispatch(searchBook(author))
+    },
     getBooks: () => {
       dispatch(getBooks());
     },

@@ -24,7 +24,7 @@ export default function computers(state = initialState, action) {
       return {
         computerNames: [
           ...state.computerNames.filter(
-            computer => computer._id !==action.payload
+            computer => computer.id !==action.payload
           )
         ]
       };
