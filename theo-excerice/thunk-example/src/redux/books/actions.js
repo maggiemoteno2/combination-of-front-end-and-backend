@@ -46,17 +46,21 @@ export const getBooks = (data = { skip: 0, limit: 10 }) => {
   };
 };
 
-export const searchBook = (author) => {
+export const searchBook = (searchTermForTitle,
+  searchTermForAuthor) => {
   return async dispatch => {
     try {
+      console.log("author2",searchTermForTitle,
+      searchTermForAuthor)
       const data = await axios.get(`http://localhost:3002/bookSearch`, {
         params: {
-          author
+          searchTermForTitle,
+          searchTermForAuthor
         }
       });
       const book = await data;
       console.log("searched book", data);
-      dispatch({ type: SEARCH_BOOK, payload: [...book.data] });
+      // dispatch({ type: SEARCH_BOOK, payload: [...book.data] });
     } catch (e) {
       console.log("error", e);
     }

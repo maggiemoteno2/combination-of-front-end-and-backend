@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { addBook, getBooks,searchBook } from "./../../redux/books/actions";
+import { addBook, getBooks, searchBook } from "./../../redux/books/actions";
 import { editTitle } from "./../../redux/books/actions";
 import { removeBook } from "./../../redux/books/actions";
 import moment from "moment";
@@ -13,7 +13,8 @@ class Books extends Component {
       titleEdited: "",
       name: "",
       author: "",
-      search:''
+      searchTermForTitle: "",
+      searchTermForAuthor: ""
     };
   }
   componentDidMount() {
@@ -39,12 +40,17 @@ class Books extends Component {
       author: ""
     });
   };
-  searchForBooks=(event,author)=>{
+
+  searchForBooks = evt => {
+    const value = evt.target.value;
     this.setState({
-      search:event.target.value.substr(0,20),
-    })
-    this.props.searchBook(author)
-  }
+      ...this.state,
+      [evt.target.name]: value
+    });
+    
+    console.log("author 1", this.state.searchTermForTitle,this.state.searchTermForAuthor);
+    this.props.searchBook(this.state.searchTermForTitle,this.state.searchTermForAuthor);
+  };
 
   editBook = (name, id) => {
     if (this.state.idEdited === "") {
@@ -65,10 +71,14 @@ class Books extends Component {
     });
   };
   render() {
-    let filteredBooks= this.props.availableBooks.filter((book)=>{
-      return book.name.indexOf(this.state.search) !== -1;
-    })
-    const { titleEdited, author, name, idEdited,search } = this.state;
+    const {
+      titleEdited,
+      author,
+      name,
+      idEdited,
+      searchTermForTitle,
+      searchTermForAuthor
+    } = this.state;
     return (
       <div className="Books">
         <input
@@ -93,12 +103,30 @@ class Books extends Component {
         >
           Add
         </button>
-        
+
         <div className="search-box">
-              <input type='text' placeholder="search title..." value={search} onChange={this.searchForBooks} />
-              <button type="submit"><i class="fa fa-search" onClick={ () => this.searchForBooks()}></i></button>
-              </div>
-        {filteredBooks.map(book => (
+          <input
+            name="searchTermForTitle"
+            type="text"
+            placeholder="search title..."
+            value={searchTermForTitle}
+            onChange={this.searchForBooks}
+          />
+          <button type="submit">
+            <i class="fa fa-search" onClick={() => this.searchForBooks()}></i>
+          </button>
+          <input
+            name="searchTermForAuthor"
+            type="text"
+            placeholder="search FOR Author..."
+            value={searchTermForAuthor}
+            onChange={this.searchForBooks}
+          />
+          <button type="submit">
+            <i class="fa fa-search" onClick={() => this.searchForBooks()}></i>
+          </button>
+        </div>
+        {this.props.availableBooks.map(book => (
           <div key={book.name}>
             <h3 className="h3">
               Title: {book.name}
@@ -117,10 +145,11 @@ class Books extends Component {
               ></i>
             </h3>
             <h3 className="h3"> Aurthor: {book.author} </h3>
-            <p className="book-date">{moment(book.date).format("Do MMMM  YYYY, h:mm:ss a")}</p>
-            
-            <br />
+            <p className="book-date">
+              {moment(book.date).format("Do MMMM  YYYY, h:mm:ss a")}
+            </p>
 
+            <br />
           </div>
         ))}
         <div className="edit-book-wrapper">
@@ -132,10 +161,10 @@ class Books extends Component {
             name="titleEdited"
             onChange={e => this.setState({ titleEdited: e.target.value })}
           />
-          
+
           <button
             className="edit-books"
-            disabled={this.state.titleEdited ===""}
+            disabled={this.state.titleEdited === ""}
             onClick={() => this.editBook(titleEdited, idEdited)}
           >
             save
@@ -148,14 +177,13 @@ class Books extends Component {
 
 const mapStateToProps = state => ({
   availableBooks: state.books.availableBooks,
-  editedValue: state.books.editedValue,
- 
+  editedValue: state.books.editedValue
 });
 
 const mapDispatchToProps = dispatch => {
   return {
-    searchBook:(author)=>{
-      dispatch(searchBook(author))
+    searchBook: (searchTermForTitle, searchTermForAuthor) => {
+      dispatch(searchBook(searchTermForTitle, searchTermForAuthor));
     },
     getBooks: () => {
       dispatch(getBooks());
