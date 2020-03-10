@@ -4,6 +4,7 @@ import { addBook, getBooks, searchBook } from "./../../redux/books/actions";
 import { editTitle } from "./../../redux/books/actions";
 import { removeBook } from "./../../redux/books/actions";
 import moment from "moment";
+import debounce from 'lodash'
 
 class Books extends Component {
   constructor(prop) {
@@ -19,6 +20,7 @@ class Books extends Component {
   }
   componentDidMount() {
     this.props.getBooks();
+    
   }
   bookAdd = (name, author) => {
     const { availableBooks } = this.props;
@@ -41,14 +43,18 @@ class Books extends Component {
     });
   };
 
-  searchForBooks = evt => {
-    const value = evt.target.value;
+  handleChange=(event)=>{
+    const value = event.target.value;
     this.setState({
       ...this.state,
-      [evt.target.name]: value
+      [event.target.name]: value,
     });
-    
-    console.log("author 1", this.state.searchTermForTitle,this.state.searchTermForAuthor);
+    console.log(this.state.searchTermForTitle)
+  }
+
+  searchForBooks = () => {
+  
+    console.log( this.state.searchTermForTitle,this.state.searchTermForAuthor)
     this.props.searchBook(this.state.searchTermForTitle,this.state.searchTermForAuthor);
   };
 
@@ -110,20 +116,17 @@ class Books extends Component {
             type="text"
             placeholder="search title..."
             value={searchTermForTitle}
-            onChange={this.searchForBooks}
+            onChange={this.handleChange}
           />
-          <button type="submit">
-            <i class="fa fa-search" onClick={() => this.searchForBooks()}></i>
-          </button>
           <input
             name="searchTermForAuthor"
             type="text"
             placeholder="search FOR Author..."
             value={searchTermForAuthor}
-            onChange={this.searchForBooks}
+            onChange={this.handleChange}
           />
           <button type="submit">
-            <i class="fa fa-search" onClick={() => this.searchForBooks()}></i>
+            <i class="fa fa-search" onClick={this.searchForBooks}></i>
           </button>
         </div>
         {this.props.availableBooks.map(book => (

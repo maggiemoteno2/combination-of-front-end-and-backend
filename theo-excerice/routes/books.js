@@ -4,7 +4,7 @@ const books = function(app) {
   app.get("/books/:skip/:limit", async (req, res) => {
     const {skip,limit}=req.params
     try {
-      const results = await BooksSchema.find().skip(skip).limit(2);
+      const results = await BooksSchema.find().skip(Number(skip)).limit(Number(limit));
       console.log('results :', results);
       const books = results.map(book => {
         return {
@@ -17,6 +17,7 @@ const books = function(app) {
       console.log(books);
       res.status(201).json(books);
     } catch (e) {
+      console.log("error",e)
       res.status(500);
     }
   });

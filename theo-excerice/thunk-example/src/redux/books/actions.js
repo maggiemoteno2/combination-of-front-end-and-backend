@@ -52,15 +52,15 @@ export const searchBook = (searchTermForTitle,
     try {
       console.log("author2",searchTermForTitle,
       searchTermForAuthor)
-      const data = await axios.get(`http://localhost:3002/bookSearch`, {
+      const searchBookResults = await axios.get(`http://localhost:3002/bookSearch`, {
         params: {
           searchTermForTitle,
           searchTermForAuthor
         }
       });
-      const book = await data;
-      console.log("searched book", data);
-      // dispatch({ type: SEARCH_BOOK, payload: [...book.data] });
+      const book = await searchBookResults;
+      console.log("searched book", {...searchBookResults});
+      dispatch({ type: SEARCH_BOOK, payload: [...book.data] });
     } catch (e) {
       console.log("error", e);
     }
