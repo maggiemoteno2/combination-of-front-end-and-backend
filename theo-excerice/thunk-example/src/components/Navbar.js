@@ -3,6 +3,7 @@ import "./Navbar.css";
 import Users from "../containers/Users";
 import Computers from "../containers/Computers";
 import Books from "../containers/Books";
+import BookPagination from './BookPagination'
 
 class Navbar extends Component {
   constructor(props) {
@@ -36,13 +37,13 @@ class Navbar extends Component {
     const { users, books, computer } = this.state;
 
     return (
-      <nav class="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
+      <nav className="mb-1 navbar navbar-expand-lg navbar-dark secondary-color lighten-1">
         
         <div className="container">
-          <div class="collapse navbar-collapse" id="navbarText">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="#">
+          <div className="collapse navbar-collapse" id="navbarText">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item">
+                <a className="nav-link" href="#">
                   <div class="users-toggle-button">
                     <button onClick={() => this.toggleUsers()}>Users</button>
 
@@ -51,19 +52,21 @@ class Navbar extends Component {
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a class="nav-link">
-                  <div class="books-toggle-button">
+              <li className="nav-item">
+                <a className="nav-link">
+                  <div className="books-toggle-button">
                     <button onClick={() => this.toggleBooks()}>Books</button>
 
-                    {books ? <Books /> : null}
+                    {books ? <Books/>: null}
+                    {books ? <BookPagination/>:null}
+                    
                   </div>
                 </a>
               </li>
 
-              <li class="nav-item">
-                <a class="nav-link">
-                  <div class="computure-toggle-button">
+              <li className="nav-item">
+                <a className="nav-link">
+                  <div className="computure-toggle-button">
                     <button onClick={() => this.toggleComputers()}>
                       Computers
                     </button>

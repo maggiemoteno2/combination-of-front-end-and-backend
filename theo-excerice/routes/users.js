@@ -14,6 +14,20 @@ const users = app => {
   });
 
   app.post("/users", async(req, res) => {
+    const userValidator= await UserModel.find()
+    for(var i in userValidator){
+      if(req.body.name.toUpperCase().trim()=== userValidator[i].name.toUpperCase().trim())
+      {
+        return res.status(400).send("computer already exist")
+      }
+    }
+    console.log("book validator",userValidator)
+    if (req.body.name === "12345678910") {
+      return res.status(400).send("please add proper name");
+    }
+    if (req.body.name === "") {
+      return res.status(400).send("name is required");
+    }
     try{
       const userSchema = new UsersModel({
         name: req.body.name

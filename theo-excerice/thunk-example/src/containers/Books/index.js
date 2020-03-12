@@ -25,6 +25,7 @@ class Books extends Component {
   bookAdd = (name, author) => {
     const { availableBooks } = this.props;
     for (var i in availableBooks) {
+
       if (
         availableBooks[i].name.toUpperCase().trim() ===
         name.toUpperCase().trim()
@@ -104,7 +105,6 @@ class Books extends Component {
 
         <button
           className="add-books"
-          disabled={this.state.author === ""}
           onClick={() => this.bookAdd(name, author)}
         >
           Add

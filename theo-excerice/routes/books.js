@@ -2,10 +2,12 @@ const BooksSchema = require("../models/bookModel");
 
 const books = function(app) {
   app.get("/books/:skip/:limit", async (req, res) => {
-    const {skip,limit}=req.params
+    const { skip, limit } = req.params;
     try {
-      const results = await BooksSchema.find().skip(Number(skip)).limit(Number(limit));
-      console.log('results :', results);
+      const results = await BooksSchema.find()
+        .skip(Number(skip))
+        .limit(Number(limit));
+      console.log("results :", results);
       const books = results.map(book => {
         return {
           id: book._id,
@@ -17,11 +19,29 @@ const books = function(app) {
       console.log(books);
       res.status(201).json(books);
     } catch (e) {
-      console.log("error",e)
+      console.log("error", e);
       res.status(500);
     }
   });
   app.post("/books", async (req, res) => {
+    const bookValidator= await BooksSchema.find()
+    for(var i in bookValidator){
+      if(req.body.name.toUpperCase().trim()=== bookValidator[i].name.toUpperCase().trim())
+      {
+        return res.status(400).send("book already exist")
+      }
+    }
+    console.log("book validator",bookValidator)
+    if (req.body.name === "" && req.body.author == "") {
+      return res.status(400).send("Name and Author required");
+    }
+    if (req.body.name === "") {
+      return res.status(400).send("name is required");
+    }
+    if (req.body.author == "") {
+      return res.status(400).send("author required");
+    }
+
     try {
       const bookSchema = new BooksSchema({
         name: req.body.name,
@@ -42,6 +62,9 @@ const books = function(app) {
   });
 
   app.put("/books/:id", async (req, res, next) => {
+    if (req.params.id != req.params.id) {
+      return res.status(400).send("incorrect id");
+    }
     try {
       await BooksSchema.findByIdAndUpdate({ _id: req.params.id }, req.body);
       console.log("put results", req.body);
@@ -51,13 +74,14 @@ const books = function(app) {
       return res.status(500);
     }
   });
-  app.delete("/books/delete/:id", function(req, res) {
-    console.log("delete", req.params.id);
-    BooksSchema.findByIdAndDelete({ _id: req.params.id }).then(function() {
-      BooksSchema.findOneAndDelete({ _id: req.params.id }).then(function(data) {
-        res.send(data);
-      });
-    });
+  app.delete("/books/:id", async (req, res) => {
+    try {
+      await BooksSchema.findByIdAndDelete({ _id: req.params.id });
+      res.send(200);
+    } catch (e) {
+      console.log(e);
+      return res.status(500);
+    }
   });
 };
 

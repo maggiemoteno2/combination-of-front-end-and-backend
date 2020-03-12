@@ -15,6 +15,20 @@ const computers = function(app) {
   });
 
   app.post("/computer", async(req, res) => {
+    const computerValidator= await ComputerModel.find()
+    for(var i in computerValidator){
+      if(req.body.name.toUpperCase().trim()=== computerValidator[i].name.toUpperCase().trim())
+      {
+        return res.status(400).send("computer already exist")
+      }
+    }
+    console.log("book validator",computerValidator)
+    if (req.body.name === "12345678910") {
+      return res.status(400).send("please add proper name");
+    }
+    if (req.body.name === "") {
+      return res.status(400).send("name is required");
+    }
   try{
     const computerModel = new ComputerModel({
       name: req.body.name

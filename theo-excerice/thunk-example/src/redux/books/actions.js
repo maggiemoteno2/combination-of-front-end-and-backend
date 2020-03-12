@@ -10,7 +10,7 @@ import axios from "axios";
 export const removeBook = id => {
   return async dispatch => {
     try {
-      await axios.delete(`http://localhost:3002/books/delete/${id}`);
+      await axios.delete(`http://localhost:3002/books/${id}`);
       console.log(`computer remove is ${id}`);
       dispatch({ type: REMOVE_BOOK, payload: { id } });
     } catch (e) {
@@ -31,7 +31,7 @@ export const editTitle = (name, id) => {
 
 export const getBooks = (data = { skip: 0, limit: 10 }) => {
   const { skip, limit } = data;
-  return async dispatch => {
+  return async dispatch => { 
     try {
       const data = await axios.get(
         `http://localhost:3002/books/${skip}/${limit}`

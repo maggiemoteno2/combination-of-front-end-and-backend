@@ -52,8 +52,10 @@ class Users extends Component {
         </div>
         <div>
           {users.map(user => (
-            <div className="wrapper">
+            
+            <div key={user.name} className="wrapper">
               <h3 className="h3"> {user.name}</h3>
+              
               <span>
                 {" "}
                 {/* <p className="user-date">{moment(user.date).format("Do MMMM  YYYY, h:mm:ss a")}</p> */}
