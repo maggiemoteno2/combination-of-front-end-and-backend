@@ -24,14 +24,13 @@ const books = function(app) {
     }
   });
   app.post("/books", async (req, res) => {
-    const bookValidator= await BooksSchema.find()
-    for(var i in bookValidator){
-      if(req.body.name.toUpperCase().trim()=== bookValidator[i].name.toUpperCase().trim())
-      {
-        return res.status(400).send("book already exist")
-      }
+    const book = await BooksSchema.findOne({ name: req.body.name });
+    console.log("my book validator", book);
+
+    if(book)
+    {
+    return res.status(400).send("book already exist");
     }
-    console.log("book validator",bookValidator)
     if (req.body.name === "" && req.body.author == "") {
       return res.status(400).send("Name and Author required");
     }

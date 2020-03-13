@@ -4,7 +4,7 @@ import { addBook, getBooks, searchBook } from "./../../redux/books/actions";
 import { editTitle } from "./../../redux/books/actions";
 import { removeBook } from "./../../redux/books/actions";
 import moment from "moment";
-import debounce from 'lodash'
+import LoadingSpinner from '../../components/LoadingSpinner'
 
 class Books extends Component {
   constructor(prop) {
@@ -19,7 +19,8 @@ class Books extends Component {
     };
   }
   componentDidMount() {
-    this.props.getBooks();
+    const data ={skip:0 ,limit:5}
+    this.props.getBooks(data);
     
   }
   bookAdd = (name, author) => {
@@ -78,6 +79,9 @@ class Books extends Component {
     });
   };
   render() {
+
+    
+    console.log("loading",this.props.isBookLoading)
     const {
       titleEdited,
       author,
@@ -88,6 +92,7 @@ class Books extends Component {
     } = this.state;
     return (
       <div className="Books">
+      
         <input
           type="text"
           placeholder="Title"
@@ -106,9 +111,11 @@ class Books extends Component {
         <button
           className="add-books"
           onClick={() => this.bookAdd(name, author)}
+          
         >
           Add
         </button>
+        
 
         <div className="search-box">
           <input
@@ -171,6 +178,7 @@ class Books extends Component {
             onClick={() => this.editBook(titleEdited, idEdited)}
           >
             save
+          {this.props.isBookLoading? <LoadingSpinner/> : null}
           </button>
         </div>
       </div>
@@ -180,16 +188,18 @@ class Books extends Component {
 
 const mapStateToProps = state => ({
   availableBooks: state.books.availableBooks,
-  editedValue: state.books.editedValue
+  isBookLoading:state.books.isBookLoading
 });
+
+
 
 const mapDispatchToProps = dispatch => {
   return {
     searchBook: (searchTermForTitle, searchTermForAuthor) => {
       dispatch(searchBook(searchTermForTitle, searchTermForAuthor));
     },
-    getBooks: () => {
-      dispatch(getBooks());
+    getBooks: (options) => {
+      dispatch(getBooks(options));
     },
     addBook: (name, author) => {
       dispatch(addBook(name, author));

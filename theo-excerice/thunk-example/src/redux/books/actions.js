@@ -3,7 +3,8 @@ import {
   REMOVE_BOOK,
   EDIT_TITLE,
   GET_BOOKS,
-  SEARCH_BOOK
+  SEARCH_BOOK,
+  BOOK_LOADER
 } from "../actionTypes";
 import axios from "axios";
 
@@ -29,17 +30,21 @@ export const editTitle = (name, id) => {
   };
 };
 
-export const getBooks = (data = { skip: 0, limit: 10 }) => {
+export const getBooks = (data = { skip: 1, limit: 2 }) => {
   const { skip, limit } = data;
+  console.log("skip data",data)
   return async dispatch => { 
+    dispatch({type:BOOK_LOADER,payload:true})
     try {
       const data = await axios.get(
         `http://localhost:3002/books/${skip}/${limit}`
       );
       const books = await data;
+      
       console.log("get data", data);
 
-      dispatch({ type: GET_BOOKS, payload: [...books.data] });
+      dispatch({ type: GET_BOOKS, payload: books.data });
+      dispatch({type:BOOK_LOADER, payload: false})
     } catch (e) {
       console.log(e);
     }

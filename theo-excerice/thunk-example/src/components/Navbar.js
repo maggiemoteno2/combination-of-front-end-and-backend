@@ -4,7 +4,7 @@ import Users from "../containers/Users";
 import Computers from "../containers/Computers";
 import Books from "../containers/Books";
 import BookPagination from './BookPagination'
-import LoadingSpinner from './LoadingSpinner'
+
 
 class Navbar extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class Navbar extends Component {
                     <button onClick={() => this.toggleBooks()}>Books</button>
 
                     {books ? <Books/>: null}
-                    {books=== true ?  <LoadingSpinner />:null}
+            
                     {books ? <BookPagination/>:null}
                     
                   </div>

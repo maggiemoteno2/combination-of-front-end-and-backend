@@ -4,20 +4,25 @@ import {
   REMOVE_BOOK,
   SAVE_EDITED_VALUE,
   GET_BOOKS,
-  SEARCH_BOOK
+  SEARCH_BOOK,
+  BOOK_LOADER
 } from "../actionTypes";
 
 const initialState = {
-  availableBooks: []
+  availableBooks: [],
+  isBookLoading: false
 };
 
 export default function books(state = initialState, action) {
   switch (action.type) {
-   
+   case BOOK_LOADER:{
+     return {...state,isBookLoading:action.payload}
+   }
     case GET_BOOKS: {
+      console.log("books reducer",action.payload)
       return {
         ...state,
-        availableBooks: action.payload
+        availableBooks: action.payload,
       };
     }
     case ADD_BOOK: {
