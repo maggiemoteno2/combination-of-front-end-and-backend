@@ -12,14 +12,11 @@ import {getBooks} from '../redux/books/actions'
     }
    
   }
-  componentDidMount() {
-    this.props.getBooks();
-    
-  }
+  
 
   handleClick = (value) => {
-    
-    console.log("books")
+    this.props.getBooks()
+    console.log("books",this.props)
   };
 
   render() {
